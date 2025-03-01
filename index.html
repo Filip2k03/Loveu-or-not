@@ -41,7 +41,7 @@
             margin-bottom: 2rem;
         }
 
-        .btn {
+        .yes-button, .no-button {
             padding: 10px 20px;
             background-color: #ff69b4;
             color: white;
@@ -96,9 +96,12 @@
 <body>
     <div class="container">
         <h1>Do You Love Me?</h1>
+        <div class="gif_container">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute GIF">
+        </div>
         <p>Click the button below and find out!</p>
-        <button id="loveButton" class="btn">Love U ❤️</button>
-        <button id="notButton" class="btn">Not Sure 😕</button>
+        <button id="loveButton" class="yes-button" onclick="handleYesClick()">Love U ❤️</button>
+        <button id="notButton" class="no-button" onclick="handleNoClick()">Not Sure 😕</button>
         <div id="resultMessage" class="message"></div>
         
         <!-- Marquee for Love Message -->
@@ -114,7 +117,7 @@
             document.getElementById("resultMessage").textContent = "I Love You More Than Anything! 💖";
             document.getElementById("resultMessage").style.color = "green";
             // Redirect to album.html
-            window.location.href = "album.html"; // This will redirect to the album page
+            // This will redirect to the album page
         });
 
         document.getElementById("notButton").addEventListener("click", function() {
@@ -125,6 +128,34 @@
             zoomLevel -= 0.2; // Decrease by 0.2 each time
             document.getElementById("notButton").style.transform = `scale(${zoomLevel})`; // Apply zoom effect
         });
+
+        const messages = [
+    "Are you sure?",
+    "Really sure??",
+    "Are you positive?",
+    "Pookie please...",
+    "Just think about it!",
+    "If you say no, I will be really sad...",
+    "I will be very sad...",
+    "I will be very very very sad...",
+    "Ok fine, I will stop asking...",
+    "Just kidding, say yes please! ❤️"
+];
+
+let messageIndex = 0;
+
+function handleNoClick() {
+    const noButton = document.querySelector('.no-button');
+    const yesButton = document.querySelector('.yes-button');
+    noButton.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+    const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+    yesButton.style.fontSize = `${currentSize * 1.5}px`;
+}
+
+function handleYesClick() {
+    window.location.href = "album.html";
+}
     </script>
 </body>
 </html>
