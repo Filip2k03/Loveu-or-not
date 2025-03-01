@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Love Story</title>
     <link rel="stylesheet" href="album.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
     <style>
+        :root {
+            --heart-size: 50px;
+        }
+
+        .heart {
+            width: var(--heart-size);
+            height: var(--heart-size);
+
+        }
+
+        .heart::before,
+        .heart::after {
+            width: var(--heart-size);
+            height: var(--heart-size);
+
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -27,7 +46,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 50% 50%, rgba(255, 192, 203, 0.2) 0%, transparent 60%),
                 radial-gradient(circle at 85% 15%, rgba(255, 182, 193, 0.1) 0%, transparent 50%);
         }
@@ -99,21 +118,26 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .button {  
-    display: inline-block;  
-    padding: 10px 20px;  
-    font-size: 16px;  
-    background-color: #ff69b4;
-    color: white;/* Green background */  
-    border: none;  
-    border-radius: 5px; /* Rounded corners */  
-    text-decoration: none; /* Remove underline */  
-    text-align: center; /* Center text */  
-}  
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff69b4;
+            color: white;
+            /* Green background */
+            border: none;
+            border-radius: 5px;
+            /* Rounded corners */
+            text-decoration: none;
+            /* Remove underline */
+            text-align: center;
+            /* Center text */
+        }
 
-.button:hover {  
-    background-color: #ff69b9; /* Darker green on hover */  
-} 
+        .button:hover {
+            background-color: #ff69b9;
+            /* Darker green on hover */
+        }
 
         .thank-you-button {
             padding: 10px 20px;
@@ -133,15 +157,18 @@
 
         .balloon {
             position: absolute;
-            bottom: -100px; /* Start below the view */
+            bottom: -100px;
+            /* Start below the view */
             font-size: 2rem;
             animation: rise 2s forwards;
         }
 
         @keyframes rise {
             to {
-                transform: translateY(-100vh); /* Move to the top of the viewport */
-                opacity: 0; /* Fade out */
+                transform: translateY(-100vh);
+                /* Move to the top of the viewport */
+                opacity: 0;
+                /* Fade out */
             }
         }
 
@@ -169,6 +196,54 @@
             box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
         }
 
+        .heart-box {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heart {
+            animation: .7s ease-in 0s infinite alternate throb;
+            width: 50px;
+            height: 50px;
+            background: #f00;
+            transform: rotateZ(45deg);
+            position: relative;
+
+            filter: drop-shadow(2px 2px 2px #000);
+
+            &::before,
+            &::after {
+                content: '';
+                width: 50px;
+                height: 50px;
+                background: #f00;
+                position: absolute;
+                border-radius: 50%;
+            }
+
+            &::before {
+                top: 0;
+                left: -25px;
+            }
+
+            &::after {
+                top: -25px;
+                right: 0;
+            }
+        }
+
+        @keyframes throb {
+            from {
+                transform: rotateZ(45deg) scale(1, 1);
+            }
+
+            to {
+                transform: rotateZ(45deg) scale(1.3, 1.3);
+            }
+        }
+
         /* Message Box Styles */
         .message-box {
             display: none;
@@ -186,17 +261,18 @@
             h1 {
                 font-size: 2.5rem;
             }
-            
+
             #countdown {
                 gap: 1rem;
             }
-            
+
             .time-block span {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
+
 <body>
     <audio id="bgMusic" loop>
         <source src="bg-sound.mp3" type="audio/mpeg">
@@ -204,11 +280,11 @@
     <div class="music-control">
         <button id="musicToggle">🎵 Play Music</button>
     </div>
-    
+
     <div class="album-container">
         <div class="hearts-bg"></div>
         <h1>Our Love Story Album</h1>
-        
+
         <div class="love-counter">
             <h3>We've been in love for:</h3>
             <div id="countdown">
@@ -228,7 +304,11 @@
         </div>
 
         <div class="love-quote">
-            "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."
+            "In all the world, there is no heart for me like yours. In all the world, there is no love for you like
+            mine."
+        </div>
+        <div class="heart-box">
+            <div class="heart"></div>
         </div>
         <button class="thank-you-button" onclick="releaseBalloons()">ArrBWrr</button>
         <div id="balloonContainer"></div>
@@ -246,7 +326,7 @@
         // Background Music Control
         const music = document.getElementById('bgMusic');
         const musicToggle = document.getElementById('musicToggle');
-        
+
         musicToggle.addEventListener('click', () => {
             if (music.paused) {
                 music.play();
@@ -261,7 +341,7 @@
         function updateCounter() {
             const startDate = new Date('2024-11-20'); // Change this to your relationship start date
             const currentDate = new Date();
-            
+
             const diffTime = Math.abs(currentDate - startDate);
             const years = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365));
             const months = Math.floor((diffTime % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
@@ -299,4 +379,5 @@
         setInterval(updateCounter, 1000 * 60 * 60 * 24); // Update daily
     </script>
 </body>
+
 </html>
