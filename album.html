@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story</title>
+    <link rel="stylesheet" href="album.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ffe6e6, #fff0f5);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 192, 203, 0.2) 0%, transparent 60%),
+                radial-gradient(circle at 85% 15%, rgba(255, 182, 193, 0.1) 0%, transparent 50%);
+        }
+
+        .album-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            color: #ff1493;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .love-counter {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .love-counter h3 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff69b4;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .time-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-block span {
+            font-size: 2.5rem;
+            color: #ff1493;
+            font-weight: bold;
+        }
+
+        .time-block .label {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .love-quote {
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            color: #ff69b4;
+            font-size: 1.5rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .thank-you-button {
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .thank-you-button:hover {
+            transform: scale(1.2);
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px; /* Start below the view */
+            font-size: 2rem;
+            animation: rise 2s forwards;
+        }
+
+        @keyframes rise {
+            to {
+                transform: translateY(-100vh); /* Move to the top of the viewport */
+                opacity: 0; /* Fade out */
+            }
+        }
+
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #musicToggle {
+            padding: 0.8rem 1.5rem;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        #musicToggle:hover {
+            background: #ff1493;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        /* Message Box Styles */
+        .message-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffebcd;
+            border: 1px solid #ff69b4;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #ff1493;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            #countdown {
+                gap: 1rem;
+            }
+            
+            .time-block span {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop>
+        <source src="bg-sound.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-control">
+        <button id="musicToggle">🎵 Play Music</button>
+    </div>
+    
+    <div class="album-container">
+        <div class="hearts-bg"></div>
+        <h1>Our Love Story Album</h1>
+        
+        <div class="love-counter">
+            <h3>We've been in love for:</h3>
+            <div id="countdown">
+                <div class="time-block">
+                    <span id="years">0</span>
+                    <span class="label">Years</span>
+                </div>
+                <div class="time-block">
+                    <span id="months">0</span>
+                    <span class="label">Months</span>
+                </div>
+                <div class="time-block">
+                    <span id="days">0</span>
+                    <span class="label">Days</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="love-quote">
+            "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine."
+        </div>
+        <button class="thank-you-button" onclick="releaseBalloons()">ArrBWrr</button>
+        <div id="balloonContainer"></div>
+
+        <!-- Message Box -->
+        <button class="thank-you-button" onclick="toggleMessageBox()">Click to See Message</button>
+        <div class="message-box" id="messageBox">I love you too, Poe Thu Aung Ye!</div>
+    </div>
+
+    <script>
+        // Background Music Control
+        const music = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        
+        musicToggle.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                musicToggle.textContent = '🔇 Pause Music';
+            } else {
+                music.pause();
+                musicToggle.textContent = '🎵 Play Music';
+            }
+        });
+
+        // Love Counter
+        function updateCounter() {
+            const startDate = new Date('2024-11-20'); // Change this to your relationship start date
+            const currentDate = new Date();
+            
+            const diffTime = Math.abs(currentDate - startDate);
+            const years = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365));
+            const months = Math.floor((diffTime % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+            const days = Math.floor((diffTime % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+        }
+
+        function releaseBalloons() {
+            const balloonContainer = document.getElementById('balloonContainer');
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.textContent = '😘'; // Balloon emoji
+            balloon.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+            balloonContainer.appendChild(balloon);
+
+            // Remove balloon after animation
+            balloon.addEventListener('animationend', () => {
+                balloon.remove();
+            });
+        }
+
+        function toggleMessageBox() {
+            const messageBox = document.getElementById('messageBox');
+            if (messageBox.style.display === 'none' || messageBox.style.display === '') {
+                messageBox.style.display = 'block';
+            } else {
+                messageBox.style.display = 'none';
+            }
+        }
+
+        updateCounter();
+        setInterval(updateCounter, 1000 * 60 * 60 * 24); // Update daily
+    </script>
+</body>
+</html>
