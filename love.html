@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoveYou</title>
+  <style>
+    :root {
+      --love-count: 100;
+      --love-size: 450px;
+      --pink-color: #ff69b4;
+      --aqua-color: #add8e6;
+    }
+
+    body {
+      background: linear-gradient(to bottom right, #ff69b4, #ffc0cb);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      font-family: 'Padauk', sans-serif;
+    }
+
+    .love {
+      position: absolute;
+      width: var(--love-size);
+      height: var(--love-size);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: horizontal 10s infinite alternate ease-in-out, vertical 20s infinite linear;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .love.show {
+      opacity: 1;
+    }
+
+    .love:last-child .love-word {
+      color: var(--aqua-color);
+      font-size: 3.5rem;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 1);
+    }
+
+    .love-word {
+      font-family: Zawgyi-One, sans-serif;
+      color: var(--aqua-color);
+      font-size: 1.4rem;
+      transform: translateY(-100%) rotate(-30deg);
+      /* font-family: "Dosis", sans-serif; */
+      text-shadow: 0 0 10px rgba(255, 200, 0, 1);
+      letter-spacing: 2px;
+      word-break: break-all;
+      max-width: 80%;
+    }
+
+    @media (max-width: 767px) {
+      .love-word {
+        font-size: 1rem;
+      }
+
+      .love:last-child .love-word {
+        font-size: 2.5rem;
+      }
+    }
+
+    @keyframes horizontal {
+      from { transform: translateX(0); }
+      to { transform: translateX(var(--love-size)); }
+    }
+
+    @keyframes vertical {
+      0% { transform: translateY(calc(var(--love-size) / 2.5)); }
+      /* Animation keyframes */
+    }
+
+    .heart-button {
+      padding: 10px 20px;
+      background-color: var(--pink-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .heart-box {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .heart {
+      animation: .7s ease-in 0s infinite alternate throb;
+      width: 50px;
+      height: 50px;
+      background: var(--pink-color);
+      transform: rotateZ(45deg);
+      position: relative;
+      filter: drop-shadow(2px 2px 2px #000);
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      background: var(--pink-color);
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: 0;
+      left: -25px;
+    }
+
+    .heart::after {
+      top: -25px;
+      right: 0;
+    }
+
+    @keyframes throb {
+      from {
+        transform: rotateZ(45deg) scale(1, 1);
+      }
+      to {
+        transform: rotateZ(45deg) scale(1.3, 1.3);
+      }
+    }
+  </style>
+     <link rel="stylesheet" href='https://mmwebfonts.comquas.com/fonts/?font=myanmar3' />
+     <link rel="stylesheet" href='https://mmwebfonts.comquas.com/fonts/?font=zawgyi' />	
+
+</head>
+<body>
+  <div id="ui">
+    <!-- Add more love elements dynamically using JavaScript -->
+  </div>
+
+  <button class="heart-button"> 
+    <div class="heart-box">
+      <div class="heart"></div>
+    </div>
+  </button>
+
+  <script>
+    const words = ['ချစ်တယ်','愛', 'Amour', 'Liebe', 'Amore', 'Amor', 'Любовь', 'الحب', 'ချစ်တယ်', 'Cinta', 'Αγάπη', '사랑', 'Liefde', 'Dashuri', 'Каханне', 'Любов', 'Ljubav', 'Láska', 'Armastus', 'Mahal', 'אהבה', 'Szerelem', 'Grá', '爱', 'Mīlestība', 'Meilė', 'Љубовта', 'Cinta', 'عشق', 'Dragoste', 'Láska', 'Renmen', 'ፍቅር', 'munaña', 'Sevgi', 'Љубав', 'karout', 'amà', 'amôr', 'kærleiki', 'mborayhu', 'Upendo', 'sòòyayyàà', 'ljubav', 'Սեր', 'сүю', 'خؤشويستين، حه زكردن', 'сүйүү', 'tia', 'aroha', 'KHAIR', 'प्रेम', 'kjærlighet', 'munay', 'jecel', 'Kärlek', 'soymek', 'Mahal', 'ярату', 'محبت', 'sopp', 'uthando', 'ความรัก', 'Aşk', 'Tình yêu', 'ליבע', 'Love'];
+
+    const ui = document.getElementById('ui');
+    const heartButton = document.querySelector('.heart-button');
+
+    let currentIndex = 0;
+
+    function showNextLove() {
+      if (currentIndex < words.length) {
+        const love = document.createElement('div');
+        love.classList.add('love');
+
+        const loveWord = document.createElement('div');
+        loveWord.classList.add('love-word');
+        loveWord.textContent = words[currentIndex];
+
+        love.appendChild(loveWord);
+        ui.appendChild(love);
+
+        // Add the 'show' class after a short delay to make the element fade in
+        setTimeout(() => {
+          love.classList.add('show');
+        }, 100);
+
+        currentIndex++;
+      }
+    }
+
+    heartButton.addEventListener('click', showNextLove);
+  </script>
+</body>
+</html>
