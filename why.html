@@ -26,6 +26,30 @@
             margin-bottom: 20px;
         }
 
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #musicToggle {
+            padding: 0.8rem 1.5rem;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        #musicToggle:hover {
+            background: #ff1493;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -96,6 +120,12 @@
 </head>
 <body>
     <div class="container">
+        <audio id="bgMusic" loop>
+            <source src="bg-sound.mp3" type="audio/mpeg">
+        </audio>
+        <div class="music-control">
+            <button id="musicToggle">🎵 Play Music</button>
+        </div>
         <h1>Why I Love You</h1>
         <div class="grid">
             <div class="grid-item">
@@ -115,8 +145,21 @@
                 <p>Your kindness makes the world a better place.</p>
             </div>
         </div>
-
-      
     </div>
+    <script>
+         const music = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+
+        musicToggle.addEventListener('click', () => {
+            if (music.paused) {
+                music.play();
+                musicToggle.textContent = '🔇 Pause Music';
+            } else {
+                music.pause();
+                musicToggle.textContent = '🎵 Play Music';
+            }
+        });
+
+    </script>
 </body>
 </html>
