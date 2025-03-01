@@ -99,6 +99,22 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
+        .button {  
+    display: inline-block;  
+    padding: 10px 20px;  
+    font-size: 16px;  
+    background-color: #ff69b4;
+    color: white;/* Green background */  
+    border: none;  
+    border-radius: 5px; /* Rounded corners */  
+    text-decoration: none; /* Remove underline */  
+    text-align: center; /* Center text */  
+}  
+
+.button:hover {  
+    background-color: #039e5c; /* Darker green on hover */  
+} 
+
         .thank-you-button {
             padding: 10px 20px;
             background-color: #ff69b4;
@@ -221,7 +237,7 @@
         <button class="thank-you-button" onclick="toggleMessageBox()">Click to See Message</button>
         <div class="message-box" id="messageBox">I love you too, Poe Thu Aung Ye!</div>
 
-        <a href="why.html" id="why" class="thank-you-button" style="text-decoration: none;">
+        <a href="why.html" id="why" class="button" style="text-decoration: none;">
             Why I Love You
         </a>
     </div>
