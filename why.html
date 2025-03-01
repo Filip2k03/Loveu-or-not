@@ -31,6 +31,12 @@
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            border: 5px solid #ff1493; /* Border for images */
+            transition: transform 0.3s; /* Smooth hover effect */
+        }
+
+        .grid-item:hover {
+            transform: scale(1.05); /* Scale effect on hover */
         }
 
         .grid-item img {
@@ -63,8 +69,8 @@
                 grid-template-columns: 1fr; /* Stack items on smaller screens */
             }
 
-            .video-container video {
-                height: auto; /* Adjust height for mobile */
+            .grid-item {
+                margin-bottom: 20px; /* Space between items on mobile */
             }
         }
     </style>
